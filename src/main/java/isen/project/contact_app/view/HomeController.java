@@ -1,9 +1,11 @@
-package isen.project.contact_app;
+package isen.project.contact_app.view;
 
 import java.io.IOException;
+
+import isen.project.contact_app.App;
 import javafx.fxml.FXML;
 
-public class PrimaryController {
+public class HomeController {
 
     @FXML
     private void switchToSecondary() throws IOException {
