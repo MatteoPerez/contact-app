@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.tuple;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -12,10 +13,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import isen.project.contact_app.db.DataSourceFactory;
-import isen.project.contact_app.db.PersonDao;
-import isen.project.contact_app.db.Person;
 
 public class PersonDaoTestCase {
 	private PersonDao personDao = new PersonDao();
@@ -32,9 +29,9 @@ public class PersonDaoTestCase {
 				+ "  birth_date DATE NULL);");
 		stmt.executeUpdate("DELETE FROM person");
 		stmt.executeUpdate("DELETE FROM sqlite_sequence WHERE name='person'");
-		stmt.executeUpdate("INSERT INTO person(idperson,lastname,firstname,nickname,phone_number,address,email_address,birth_date) VALUES (1,'Genre','Elodie','UwU','06 25 26 08 74','Japon','e@gmail.com','2015-12-21')");
-		stmt.executeUpdate("INSERT INTO person(idperson,lastname,firstname,nickname,phone_number,address,email_address,birth_date) VALUES (2,'Meuniez','Raphael','Le GOAT','06 30 28 09 47','Italie','r@gmail.com','2000-05-26')");
-		stmt.executeUpdate("INSERT INTO person(idperson,lastname,firstname,nickname,phone_number,address,email_address,birth_date) VALUES (3,'Perez','Matteo','...','06 30 26 81 30','Espagne','m@gmail.com','2003-01-02')");
+		stmt.executeUpdate("INSERT INTO person(idperson,lastname,firstname,nickname,phone_number,address,email_address,birth_date) VALUES (1,'Genre','Elodie','UwU','06 51 98 92 42','Japon','e@gmail.com','2003-05-29')");
+		stmt.executeUpdate("INSERT INTO person(idperson,lastname,firstname,nickname,phone_number,address,email_address,birth_date) VALUES (2,'Meuniez','Raphael','Le GOAT','06 30 28 09 47','Italie','r@gmail.com','2002-01-01')");
+		stmt.executeUpdate("INSERT INTO person(idperson,lastname,firstname,nickname,phone_number,address,email_address,birth_date) VALUES (3,'Perez','Matteo','...','06 30 26 81 30','Espagne','m@gmail.com','2003-06-17')");
 		stmt.close();
 		connection.close();
 	}
@@ -46,9 +43,9 @@ public class PersonDaoTestCase {
 		// THEN
 		assertThat(persons).hasSize(3);
 		assertThat(persons).extracting("id", "lastName", "firstName", "nickName", "phoneNumber", "address", "emailAddress", "birthDate").containsOnly(
-				tuple(1, "Genre", "Elodie", "UwU", "06 25 26 08 74", "Japon", "e@gmail.com", Date.valueOf(LocalDate.parse("2015-12-21"))),
-				tuple(2, "Meuniez", "Raphael", "Le GOAT", "06 30 28 09 47", "Italie", "r@gmail.com", Date.valueOf(LocalDate.parse("2000-05-26"))),
-				tuple(3, "Perez", "Matteo", "...", "06 30 26 81 30", "Espagne", "m@gmail.com", Date.valueOf(LocalDate.parse("2003-01-02"))));
+				tuple(1, "Genre", "Elodie", "UwU", "06 51 98 92 42", "Japon", "e@gmail.com", Date.valueOf(LocalDate.parse("2003-05-29"))),
+				tuple(2, "Meuniez", "Raphael", "Le GOAT", "06 30 28 09 47", "Italie", "r@gmail.com", Date.valueOf(LocalDate.parse("2002-01-01"))),
+				tuple(3, "Perez", "Matteo", "...", "06 30 26 81 30", "Espagne", "m@gmail.com", Date.valueOf(LocalDate.parse("2003-06-17"))));
 	}
 	
 //	@Test
@@ -59,7 +56,7 @@ public class PersonDaoTestCase {
 //		assertThat(person.getId()).isEqualTo(2);
 //		assertThat(person.getName()).isEqualTo("Comedy");
 //	}
-//	
+	
 //	@Test
 //	public void shouldNotGetUnknownPerson() {
 //		// WHEN
@@ -67,21 +64,31 @@ public class PersonDaoTestCase {
 //		// THEN
 //		assertThat(person).isNull();
 //	}
-//	
-//	@Test
-//	public void shouldAddPerson() throws Exception {
-//		// WHEN 
-//		personDao.addPerson("Western");
-//		// THEN
-//		Connection connection = DataSourceFactory.getDataSource().getConnection();
-//		Statement statement = connection.createStatement();
-//		ResultSet resultSet = statement.executeQuery("SELECT * FROM genre WHERE name='Western'");
-//		assertThat(resultSet.next()).isTrue();
-//		assertThat(resultSet.getInt("idgenre")).isNotNull();
-//		assertThat(resultSet.getString("name")).isEqualTo("Western");
-//		assertThat(resultSet.next()).isFalse();
-//		resultSet.close();
-//		statement.close();
-//		connection.close();
-//	}
+	
+	@Test
+	public void shouldAddPerson() throws Exception {
+		// WHEN
+		Person person = new Person("Fisher", "Sam", "Splinter Cell", "06 06 06 06 06", "USA", "s@gmail.com", Date.valueOf(LocalDate.parse("1975-10-25")));
+		personDao.addPerson(person);
+		// THEN		
+		Connection connection = DataSourceFactory.getDataSource().getConnection();
+		PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE lastname = ?");
+		statement.setString(1, "Fisher");
+		ResultSet resultSet = statement.executeQuery();
+		
+		assertThat(resultSet.next()).isTrue();
+		assertThat(resultSet.getInt("idperson")).isNotNull();
+		assertThat(resultSet.getString("lastname")).isEqualTo("Fisher");
+		assertThat(resultSet.getString("firstname")).isEqualTo("Sam");
+		assertThat(resultSet.getString("nickname")).isEqualTo("Splinter Cell");
+		assertThat(resultSet.getString("phone_number")).isEqualTo("06 06 06 06 06");
+		assertThat(resultSet.getString("address")).isEqualTo("USA");
+		assertThat(resultSet.getString("email_address")).isEqualTo("s@gmail.com");
+		assertThat(resultSet.getDate("birth_date")).isEqualTo(Date.valueOf(LocalDate.parse("1975-10-25")));
+		assertThat(resultSet.next()).isFalse();
+				
+		resultSet.close();
+		statement.close();
+		connection.close();
+	}
 }
