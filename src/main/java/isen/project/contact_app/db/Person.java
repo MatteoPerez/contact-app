@@ -1,6 +1,6 @@
 package isen.project.contact_app.db;
 
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class Person {
 	private Integer id;
@@ -8,19 +8,19 @@ public class Person {
 	private String firstName;
 	private String nickName;
 	private String phoneNumber;
-	private String adress;
-	private String emailAdress;
-	private LocalDate birthDate;
+	private String address;
+	private String emailAddress;
+	private Date birthDate;
 	
-	public Person(Integer id, String lastName, String firstName, String nickName, String phoneNumber, String adress, String emailAdress, LocalDate birthDate) {
+	public Person(Integer id, String lastName, String firstName, String nickName, String phoneNumber, String address, String emailAddress, Date birthDate) {
 		super();
 		this.id = id;
 		this.lastName = lastName;
 		this.firstName = firstName;
 		this.nickName = nickName;
 		this.phoneNumber = phoneNumber;
-		this.adress = adress;
-		this.emailAdress = adress;
+		this.address = address;
+		this.emailAddress = emailAddress;
 		this.birthDate = birthDate;
 	}
 
@@ -72,11 +72,11 @@ public class Person {
 		this.emailAdress = emailAdress;
 	}
 
-	public LocalDate getBirthDate() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
 
-	public void setBirthDate(LocalDate birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 
