@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="isen.project.contact_app.view.AddPersonController">
+   <children>
+      <DatePicker fx:id="birthDatePicker" layoutX="312.0" layoutY="414.0" />
+      <TextField fx:id="firstNameLabel" layoutX="325.0" layoutY="150.0" promptText="First name" />
+      <TextField fx:id="lastNameLabel" layoutX="325.0" layoutY="193.0" promptText="Last name" />
+      <TextField fx:id="nickNameLabel" layoutX="325.0" layoutY="235.0" promptText="Nick name" />
+      <Button layoutX="58.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#switchToHome" prefHeight="26.0" prefWidth="120.0" text="Home" />
+      <Button layoutX="58.0" layoutY="85.0" mnemonicParsing="false" onMouseClicked="#switchToListPersons" prefHeight="26.0" prefWidth="120.0" text="List of all persons" />
+      <TextField fx:id="phoneNumberLabel" layoutX="325.0" layoutY="274.0" promptText="Phone number" />
+      <TextField fx:id="adressLabel" layoutX="325.0" layoutY="313.0" promptText="Adress" />
+      <TextField fx:id="emailAdressLabel" layoutX="325.0" layoutY="354.0" promptText="Email adress" />
+      <Button layoutX="345.0" layoutY="469.0" mnemonicParsing="false" onMouseClicked="#addPerson" prefHeight="36.0" prefWidth="109.0" text="Create" />
+   </children>
+</AnchorPane>

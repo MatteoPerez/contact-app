@@ -12,12 +12,11 @@ import java.io.IOException;
  * JavaFX App
  */
 public class App extends Application {
-
     private static Scene scene;
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("/isen/project/contact_app/Home"), 640, 480);
+        scene = new Scene(loadFXML("/isen/project/contact_app/view/HomeScreen"), 800, 600);
         stage.setScene(scene);
         stage.setTitle("CommunISEN");
         stage.show();
@@ -35,5 +34,4 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }

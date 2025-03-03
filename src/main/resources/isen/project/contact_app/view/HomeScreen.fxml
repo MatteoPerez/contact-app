@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="isen.project.contact_app.view.HomeController">
+   <children>
+      <Button layoutX="275.0" layoutY="275.0" mnemonicParsing="false" onMouseClicked="#switchToListPersons" prefHeight="50.0" prefWidth="250.0" text="List persons" />
+      <Button layoutX="275.0" layoutY="348.0" mnemonicParsing="false" onMouseClicked="#switchToAddPersons" prefHeight="50.0" prefWidth="250.0" text="Add person" />
+      <Text fontSmoothingType="LCD" layoutX="300.0" layoutY="226.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appl'ISEN" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="200.0" />
+   </children>
+</AnchorPane>
