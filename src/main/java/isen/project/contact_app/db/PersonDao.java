@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,33 +39,32 @@ public class PersonDao {
 		}
 	}
 
-//	public Person getPerson(String lastName, String firstName) {
-//		try(Connection connection = DataSourceFactory.getDataSource().getConnection();) {
-//			try(PreparedStatement statement = connection.prepareStatement("SELECT * FROM genre WHERE lastname = ? AND firstname = ?")) {
-//				statement.setString(1, lastName);
-//				statement.setString(2, firstName);
-//				try(ResultSet results = statement.executeQuery()) {
-//					if(results.next()) {
-//						return new Person(
-//								results.getInt("idperson"), 
-//								results.getString("lastname"),
-//								results.getString("firstname"),
-//								results.getString("nickname"),
-//								results.getString("phone_number"),
-//								results.getString("adress"),
-//								results.getString("email_adress"),
-//								results.getDate("birth_date").toLocalDate());
-//					} else {
-//						return null;
-//					}
-//				}
-//			}
-//		} catch(SQLException e) {
-//			// Manage Exception
-//	        e.printStackTrace();
-//	        return null;
-//		}
-//	}
+	public Person getPersonById(int id) {
+		try(Connection connection = DataSourceFactory.getDataSource().getConnection();) {
+			try(PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE idperson = ?")) {
+				statement.setInt(1, id);
+				try(ResultSet results = statement.executeQuery()) {
+					if(results.next()) {
+						return new Person(
+								results.getInt("idperson"), 
+								results.getString("lastname"),
+								results.getString("firstname"),
+								results.getString("nickname"),
+								results.getString("phone_number"),
+								results.getString("address"),
+								results.getString("email_address"),
+								Date.valueOf(results.getString("birth_date")));
+					} else {
+						return null;
+					}
+				}
+			}
+		} catch(SQLException e) {
+			// Manage Exception
+	        e.printStackTrace();
+	        return null;
+		}
+	}
 	
 	public Person addPerson(Person person) {
 		try(Connection connection = DataSourceFactory.getDataSource().getConnection();) {

@@ -48,14 +48,14 @@ public class PersonDaoTestCase {
 				tuple(3, "Perez", "Matteo", "...", "06 30 26 81 30", "Espagne", "m@gmail.com", Date.valueOf(LocalDate.parse("2003-06-17"))));
 	}
 	
-//	@Test
-//	public void shouldGetPersonByName() {
-//		// WHEN
-//		Person person = personDao.getPerson("Comedy");
-//		// THEN
-//		assertThat(person.getId()).isEqualTo(2);
-//		assertThat(person.getName()).isEqualTo("Comedy");
-//	}
+	@Test
+	public void shouldGetPersonById() {
+		// WHEN
+		Person person = personDao.getPersonById(2);
+		// THEN
+		assertThat(person.getId()).isEqualTo(2);
+		assertThat(person.getFirstName()).isEqualTo("Raphael");
+	}
 	
 //	@Test
 //	public void shouldNotGetUnknownPerson() {
