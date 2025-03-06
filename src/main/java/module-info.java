@@ -3,6 +3,7 @@ module isen.project.contact_app {
     requires javafx.fxml;
 	requires java.sql;
 	requires sqlite.jdbc;
+	requires javafx.graphics;
 
     opens isen.project.contact_app to javafx.fxml;
     opens isen.project.contact_app.view to javafx.fxml;

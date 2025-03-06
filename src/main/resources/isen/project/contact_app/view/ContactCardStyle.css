@@ -1,0 +1,14 @@
+.anchor-pane {
+    -fx-background-color: #d07ff1;  /* Mauve */
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-border-color: #73248b;  /* Bordure légèrement plus foncée */
+    -fx-padding: 10;
+}
+
+/* Style du texte */
+.label {
+    -fx-text-fill: white; /* Texte en blanc pour contraster avec le mauve */
+    -fx-font-family: "Arial";
+    -fx-font-size: 14px;
+}
