@@ -91,4 +91,17 @@ public class PersonDao {
 	        return null;
 		}
 	}
+	
+	public void deletePerson(Person person) {
+		try(Connection connection = DataSourceFactory.getDataSource().getConnection();) {
+			String sqlQuery = "DELETE FROM person WHERE idperson = ?";
+			try(PreparedStatement statement = connection.prepareStatement(sqlQuery)) {
+				statement.setInt(1, person.getId());
+	            statement.executeUpdate();
+			}
+		} catch(SQLException e) {
+			// Manage Exception
+	        e.printStackTrace();
+		}
+	}
 }

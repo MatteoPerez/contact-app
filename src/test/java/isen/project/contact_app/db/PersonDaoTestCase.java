@@ -66,6 +66,17 @@ public class PersonDaoTestCase {
 //	}
 	
 	@Test
+	public void shouldDeletePerson() throws Exception {		
+		// WHEN
+		assertThat(personDao.getPersonById(2)).isNotNull();
+		personDao.deletePerson(personDao.getPersonById(2));
+		// THEN
+		assertThat(personDao.getPersonById(2)).isNull();
+		List<Person> persons = personDao.listPersons();
+	    assertThat(persons).hasSize(2);
+	}
+	
+	@Test
 	public void shouldAddPerson() throws Exception {
 		// WHEN
 		Person person = new Person("Fisher", "Sam", "Splinter Cell", "06 06 06 06 06", "USA", "s@gmail.com", Date.valueOf(LocalDate.parse("1975-10-25")));
@@ -86,7 +97,7 @@ public class PersonDaoTestCase {
 		assertThat(resultSet.getString("email_address")).isEqualTo("s@gmail.com");
 		assertThat(resultSet.getDate("birth_date")).isEqualTo(Date.valueOf(LocalDate.parse("1975-10-25")));
 		assertThat(resultSet.next()).isFalse();
-				
+		
 		resultSet.close();
 		statement.close();
 		connection.close();
