@@ -92,6 +92,25 @@ public class PersonDao {
 		}
 	}
 	
+	public void updatePerson(Person person) {
+		try(Connection connection = DataSourceFactory.getDataSource().getConnection();) {
+			try(PreparedStatement statement = connection.prepareStatement("UPDATE person SET lastname = ?, firstname = ?, nickname = ?, phone_number = ?, address = ?, email_address = ?, birth_date = ? WHERE idperson = ?")) {
+				statement.setString(1, person.getLastName());
+		        statement.setString(2, person.getFirstName());
+		        statement.setString(3, person.getNickName());
+		        statement.setString(4, person.getPhoneNumber());
+		        statement.setString(5, person.getAddress());
+		        statement.setString(6, person.getEmailAddress());
+		        statement.setDate(7, person.getBirthDate());
+		        statement.setInt(8, person.getId());
+		        statement.executeUpdate();
+			}
+		} catch(SQLException e) {
+			// Manage Exception
+	        e.printStackTrace();
+		}
+	}
+	
 	public void deletePerson(Person person) {
 		try(Connection connection = DataSourceFactory.getDataSource().getConnection();) {
 			String sqlQuery = "DELETE FROM person WHERE idperson = ?";

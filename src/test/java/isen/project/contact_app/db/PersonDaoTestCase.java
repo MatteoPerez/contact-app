@@ -66,6 +66,17 @@ public class PersonDaoTestCase {
 //	}
 	
 	@Test
+	public void shouldUpdatePerson() throws Exception {		
+		// WHEN
+		Person person = personDao.getPersonById(2);
+		assertThat(person).isNotNull();
+		person.setFirstName("Impostor SUS");
+		personDao.updatePerson(person);
+		// THEN
+		assertThat(person.getFirstName()).isEqualTo("Impostor SUS");
+	}
+	
+	@Test
 	public void shouldDeletePerson() throws Exception {		
 		// WHEN
 		assertThat(personDao.getPersonById(2)).isNotNull();
