@@ -10,6 +10,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDao {
+	public PersonDao() {
+		try(Connection connection = DataSourceFactory.getDataSource().getConnection()) {
+			try(Statement stmt = connection.createStatement();) {
+				stmt.executeUpdate(
+						"CREATE TABLE IF NOT EXISTS person (\r\n"
+						+ "  idperson INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,\r\n" + "  lastname VARCHAR(45) NOT NULL,\r\n"
+						+ "  firstname VARCHAR(45) NOT NULL,\r\n" + "  nickname VARCHAR(45) NOT NULL,\r\n" + "  phone_number VARCHAR(15) NULL,\r\n"
+						+ "  address VARCHAR(200) NULL,\r\n" + "  email_address VARCHAR(150) NULL,\r\n"
+						+ "  birth_date DATE NULL);");
+				stmt.executeUpdate("DELETE FROM person");
+				stmt.executeUpdate("DELETE FROM sqlite_sequence WHERE name='person'");
+				stmt.executeUpdate("INSERT INTO person(idperson,lastname,firstname,nickname,phone_number,address,email_address,birth_date) VALUES (1,'Genre','Elodie','UwU','06 51 98 92 42','Japon','e@gmail.com','2003-05-29')");
+				stmt.executeUpdate("INSERT INTO person(idperson,lastname,firstname,nickname,phone_number,address,email_address,birth_date) VALUES (2,'Meuniez','Raphael','Le GOAT','06 30 28 09 47','Italie','r@gmail.com','2002-01-01')");
+				stmt.executeUpdate("INSERT INTO person(idperson,lastname,firstname,nickname,phone_number,address,email_address,birth_date) VALUES (3,'Perez','Matteo','...','06 30 26 81 30','Espagne','m@gmail.com','2003-06-17')");
+				stmt.close();
+				connection.close();
+			}
+		} catch(SQLException e) {
+			// Manage Exception
+	        e.printStackTrace();
+		}
+	}
 	
 	public List<Person> listPersons() {
 		List<Person> listOfPersons = new ArrayList<>();
