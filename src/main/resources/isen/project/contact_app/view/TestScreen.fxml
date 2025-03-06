@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/23.0.1" fx:controller="isen.project.contact_app.view.TestController">
+   <children>
+      <TableView fx:id="personsTable" layoutX="196.0" layoutY="130.0" prefHeight="339.0" prefWidth="407.0">
+        <columns>
+          <TableColumn fx:id="personColumn" prefWidth="406.40001220703124" text="Contacts" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
