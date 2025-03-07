@@ -12,6 +12,13 @@ public class Person {
 	private String emailAddress;
 	private Date birthDate;
 	
+	public Person() {
+		// Those elements must be NOT NULL (id too)
+		this.lastName = "Doe";
+		this.firstName = "John";
+		this.nickName = "Mysterio";
+	}
+	
 	public Person(Integer id, String lastName, String firstName, String nickName, String phoneNumber, String address, String emailAddress, Date birthDate) {
 		super();
 		this.id = id;

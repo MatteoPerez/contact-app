@@ -61,7 +61,7 @@ public class PersonDao {
 		}
 	}
 
-	public Person getPersonById(int id) {
+	public Person getPersonById(Integer id) {
 		try(Connection connection = DataSourceFactory.getDataSource().getConnection();) {
 			try(PreparedStatement statement = connection.prepareStatement("SELECT * FROM person WHERE idperson = ?")) {
 				statement.setInt(1, id);
