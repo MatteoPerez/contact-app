@@ -1,11 +1,14 @@
 package isen.project.contact_app.view;
 
+import java.sql.Date;
+
 import isen.project.contact_app.PersonService;
 import isen.project.contact_app.PersonValueFactory;
 import isen.project.contact_app.db.Person;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -18,48 +21,67 @@ public class TestController {
 	public TableColumn<Person,String> personColumn;
 	@FXML
 	public AnchorPane formPane;
+	@FXML
+	public TextField firstNameField;
+	@FXML
+	public TextField lastNameField;
+	@FXML
+	public TextField nickNameField;
+	@FXML
+	public TextField phoneNumberField;
+	@FXML
+	public TextField addressField;
+	@FXML
+	public TextField emailAddressField;
+	@FXML
+	public DatePicker birthDateField;
 	
-//    @FXML
-//    private void handleSaveButton() {
-//    	currentQuestion.setQuestion(questionField.getText());
-//    	currentQuestion.getAnswer1().setText(answer1Field.getText());
-//    	currentQuestion.getAnswer2().setText(answer2Field.getText());
-//    	currentQuestion.getAnswer3().setText(answer3Field.getText());
-//    	if (radio1.isSelected()) {
-//    		currentQuestion.getAnswer1().setGoodAnswer(true);
-//    		currentQuestion.getAnswer2().setGoodAnswer(false);
-//    		currentQuestion.getAnswer3().setGoodAnswer(false);
-//    	}
-//    	if (radio2.isSelected()) {
-//    		currentQuestion.getAnswer1().setGoodAnswer(false);
-//    		currentQuestion.getAnswer2().setGoodAnswer(true);
-//    		currentQuestion.getAnswer3().setGoodAnswer(false);
-//    	}
-//    	if (radio3.isSelected()) {
-//    		currentQuestion.getAnswer1().setGoodAnswer(false);
-//    		currentQuestion.getAnswer2().setGoodAnswer(false);
-//    		currentQuestion.getAnswer3().setGoodAnswer(true);
-//    	}
-//    	resetView();
-//    }
+	private Person currentPerson;
+	
+    @FXML
+    private void handleSaveButton() {
+    	currentPerson.setLastName(lastNameField.getText());
+    	currentPerson.setFirstName(firstNameField.getText());
+    	currentPerson.setNickName(nickNameField.getText());
+    	currentPerson.setPhoneNumber(phoneNumberField.getText());
+    	currentPerson.setAddress(addressField.getText());
+    	currentPerson.setEmailAddress(emailAddressField.getText());
+    	if(birthDateField.getValue() != null) {
+    		currentPerson.setBirthDate(Date.valueOf(birthDateField.getValue()));
+    	} else {
+    		currentPerson.setBirthDate(null);
+    	}
+    	
+    	Person newPerson = new Person();
+    	newPerson.setId(currentPerson.getId());
+    	newPerson.setLastName(lastNameField.getText());
+    	newPerson.setFirstName(firstNameField.getText());
+    	newPerson.setNickName(nickNameField.getText());
+    	newPerson.setPhoneNumber(phoneNumberField.getText());
+    	newPerson.setAddress(addressField.getText());
+    	newPerson.setEmailAddress(emailAddressField.getText());
+    	if(birthDateField.getValue() != null) {
+    		newPerson.setBirthDate(Date.valueOf(birthDateField.getValue()));
+    	} else {
+    		newPerson.setBirthDate(null);
+    	}
+    	PersonService.updatePerson(newPerson);
+    }
 
 
-//    @FXML
-//    private void handleNewButton() {
-//    	Question newQuestion = new Question();
-//    	QuestionService.addQuestion(newQuestion);
-//    	questionsTable.getSelectionModel().select(newQuestion);
-//    }
+    @FXML
+    private void handleNewButton() {
+    	Person newPerson = new Person();
+    	PersonService.addPerson(newPerson);
+    	personsTable.getSelectionModel().select(newPerson);
+    }
 
 
-//    @FXML
-//    private void handleDeleteButton() {
-//    	int selectedIndex = questionsTable.getSelectionModel().getSelectedIndex();
-//        if (selectedIndex >= 0) {
-//            questionsTable.getItems().remove(selectedIndex);
-//            resetView();
-//        }
-//    }
+    @FXML
+    private void handleDeleteButton() {
+    	PersonService.removePerson(personsTable.getSelectionModel().getSelectedItem());
+    	resetView();
+    }
     
     public void refreshList() {
     	personsTable.refresh();
@@ -76,33 +98,37 @@ public class TestController {
 		PersonValueFactory questionValueFactory = new PersonValueFactory();
 		personColumn.setCellValueFactory(questionValueFactory);
 		populateList();
-//		personsTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
-//			@Override
-//			public void changed(ObservableValue<? extends Person> observable, Person oldValue, Person newValue) {
-//				showQuestionDetails(newValue);
-//			}
-//		});
-//		resetView();
+		personsTable.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<>() {
+			@Override
+			public void changed(ObservableValue<? extends Person> observable, Person oldValue, Person newValue) {
+				showPersonDetails(newValue);
+			}
+		});
+		resetView();
 	}
     
-//    public void showQuestionDetails(Question question) {
-//    	if (question == null) {
-//    		formPane.setVisible(false);
-//    	} else {
-//    		formPane.setVisible(true);
-//    		this.currentQuestion = question;
-//    		questionField.setText(currentQuestion.getQuestion());
-//    		answer1Field.setText(currentQuestion.getAnswer1().getText());
-//    		answer2Field.setText(currentQuestion.getAnswer2().getText());
-//    		answer3Field.setText(currentQuestion.getAnswer3().getText());
-//    		radio1.setSelected(currentQuestion.getAnswer1().isGoodAnswer());
-//    		radio2.setSelected(currentQuestion.getAnswer2().isGoodAnswer());
-//    		radio3.setSelected(currentQuestion.getAnswer3().isGoodAnswer());
-//    	}
-//    }
+    public void showPersonDetails(Person person) {
+    	if (person == null) {
+    		formPane.setVisible(false);
+    	} else {
+    		formPane.setVisible(true);
+    		this.currentPerson = person;
+    		lastNameField.setText(currentPerson.getLastName());
+    		firstNameField.setText(currentPerson.getFirstName());
+    		nickNameField.setText(currentPerson.getNickName());
+    		phoneNumberField.setText(currentPerson.getPhoneNumber());
+    		addressField.setText(currentPerson.getAddress());
+    		emailAddressField.setText(currentPerson.getEmailAddress());
+    		if (currentPerson.getBirthDate() != null) {
+                birthDateField.setValue(currentPerson.getBirthDate().toLocalDate());
+            } else {
+                birthDateField.setValue(null);
+            }
+    	}
+    }
     
-//    public void resetView() {
-//    	showQuestionDetails(null);
-//    	refreshList();
-//    }
+    public void resetView() {
+    	showPersonDetails(null);
+    	refreshList();
+    }
 }
