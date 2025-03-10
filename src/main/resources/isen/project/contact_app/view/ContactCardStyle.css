@@ -1,14 +1,33 @@
 .anchor-pane {
-    -fx-background-color: #d07ff1;  /* Mauve */
+    -fx-background-color: transparent;
     -fx-background-radius: 10;
-    -fx-border-radius: 10;
-    -fx-border-color: #73248b;  /* Bordure légèrement plus foncée */
-    -fx-padding: 10;
+    
+    /* Supprime la bordure par défaut */
+    -fx-border-color: transparent transparent white transparent; /* Haut, droite, bas, gauche */
+    
+    -fx-border-width: 0 0 1px 0; /* Bordure visible seulement en bas (2px d'épaisseur) */
+    
+    -fx-padding: 0;
 }
+
 
 /* Style du texte */
 .label {
     -fx-text-fill: white; /* Texte en blanc pour contraster avec le mauve */
     -fx-font-family: "Arial";
     -fx-font-size: 14px;
+}
+
+.contact-button {
+    -fx-background-color: rgba(255, 255, 255, 0); /* Blanc transparent (20%) */
+    -fx-border-color: transparent;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-transition: all 0.3s ease; /* Animation fluide */
+}
+
+.button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2); /* Légère réduction de la transparence (30%) */
 }
