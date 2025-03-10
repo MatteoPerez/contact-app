@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -15,6 +16,7 @@
 
 <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="1080.0" prefWidth="1920.0" styleClass="image-view" stylesheets="@HomeScreenStyle.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="isen.project.contact_app.view.HomeController">
    <children>
+      <Button fx:id="addButton" mnemonicParsing="false" onAction="#onNewContactClicked" prefHeight="34.0" prefWidth="145.0" style="-fx-background-color: #5b4972; -fx-font-family: Arial; -fx-font-weight: bold;" styleClass="button-test" stylesheets="@HomeScreenStyle.css" text="NEW CONTACT" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="90.0" />
       <ImageView fitHeight="486.0" fitWidth="416.0" layoutX="117.0" layoutY="58.0" pickOnBounds="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="70.0">
          <image>
             <Image url="@../images/Design%20sans%20titre%20(1).png" />
@@ -29,7 +31,8 @@
                         <Insets top="10.0" />
                      </padding>
                   </FlowPane>
-               </children></AnchorPane>
+               </children>
+            </AnchorPane>
         </content>
       </ScrollPane>
       <Text fill="WHITE" layoutX="86.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text" text="Contacts" AnchorPane.topAnchor="40.0">
@@ -82,7 +85,7 @@
                               <Font size="18.0" />
                            </font>
                         </Text>
-                        <Text fx:id="birthDate" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="birthDate" visible="false" wrappingWidth="134.52257537841797">
+                        <Text fx:id="birthDate" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="birthDate" wrappingWidth="134.52257537841797">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -94,12 +97,12 @@
             <HBox prefHeight="36.0" prefWidth="338.0" spacing="50.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="350.0">
                <children>
                   <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#onDeleteClicked" prefHeight="34.0" prefWidth="145.0" style="-fx-background-color: #362747; -fx-font-family: Arial; -fx-font-weight: bold;" styleClass="button-test" stylesheets="@HomeScreenStyle.css" text="DELETE" />
-                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="145.0" style="-fx-background-color: #362747; -fx-font-family: Arial; -fx-font-weight: bold;" styleClass="button-test" stylesheets="@HomeScreenStyle.css" text="EDIT" />
+                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#onEditClicked" prefHeight="34.0" prefWidth="145.0" style="-fx-background-color: #362747; -fx-font-family: Arial; -fx-font-weight: bold;" styleClass="button-test" stylesheets="@HomeScreenStyle.css" text="EDIT" />
                </children>
             </HBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="1299.0" layoutY="134.0" prefHeight="486.0" prefWidth="401.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="70.0">
+      <AnchorPane fx:id="editCard" layoutX="1299.0" layoutY="134.0" prefHeight="486.0" prefWidth="401.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="70.0">
          <children>
             <ImageView fitHeight="486.0" fitWidth="486.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <image>
@@ -110,25 +113,25 @@
                <children>
                   <VBox prefHeight="102.0" prefWidth="225.0" spacing="2.0">
                      <children>
-                        <TextField promptText="First Name" />
-                        <TextField promptText="Last Name" />
-                        <TextField promptText="Nick Name" />
+                        <TextField fx:id="editprenom" promptText="First Name" />
+                        <TextField fx:id="editnom" promptText="Last Name" />
+                        <TextField fx:id="editnickname" promptText="Nick Name" />
                      </children>
                   </VBox>
                   <VBox prefHeight="34.0" prefWidth="227.0" spacing="2.0">
                      <children>
-                        <TextField promptText="Adress" />
-                        <TextField promptText="Phone Number" />
-                        <TextField promptText="Email Adress" />
-                        <TextField promptText="Birth Date" />
+                        <TextField fx:id="editadress" promptText="Adress" />
+                        <TextField fx:id="editnumber" promptText="Phone Number" />
+                        <TextField fx:id="editemail" promptText="Email Adress" />
+                        <DatePicker fx:id="editbirthDate" prefHeight="25.0" prefWidth="183.0" />
                      </children>
                   </VBox>
                </children>
             </HBox>
             <HBox prefHeight="36.0" prefWidth="338.0" spacing="50.0" AnchorPane.leftAnchor="75.0" AnchorPane.topAnchor="350.0">
                <children>
-                  <Button fx:id="deleteButton1" mnemonicParsing="false" onAction="#onDeleteClicked" prefHeight="34.0" prefWidth="145.0" style="-fx-background-color: #362747; -fx-font-family: Arial; -fx-font-weight: bold;" styleClass="button-test" stylesheets="@HomeScreenStyle.css" text="DELETE" />
-                  <Button mnemonicParsing="false" prefHeight="34.0" prefWidth="145.0" style="-fx-background-color: #362747; -fx-font-family: Arial; -fx-font-weight: bold;" styleClass="button-test" stylesheets="@HomeScreenStyle.css" text="EDIT" />
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#onCancelClicked" prefHeight="34.0" prefWidth="145.0" style="-fx-background-color: #362747; -fx-font-family: Arial; -fx-font-weight: bold;" styleClass="button-test" stylesheets="@HomeScreenStyle.css" text="CANCEL" />
+                  <Button fx:id="okButton" mnemonicParsing="false" onAction="#onOkClicked" prefHeight="34.0" prefWidth="145.0" style="-fx-background-color: #362747; -fx-font-family: Arial; -fx-font-weight: bold;" styleClass="button-test" stylesheets="@HomeScreenStyle.css" text="OK" />
                </children>
             </HBox>
          </children>

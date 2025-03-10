@@ -13,9 +13,9 @@
         <HBox layoutX="20.0" layoutY="20.0" prefHeight="30.0" prefWidth="293.0" spacing="30.0" stylesheets="@ContactCardStyle.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <ImageView fitHeight="38.0" fitWidth="40.0" preserveRatio="true">
-                    <image>
-                        <Image url="https://cdn-icons-png.flaticon.com/512/7980/7980574.png" />
-                    </image>
+               <image>
+                  <Image url="@../images/contact%20image.png" />
+               </image>
                 </ImageView>
                  <Label fx:id="firstName" style="-fx-font-family: Arial;" stylesheets="@ContactCardStyle.css" text="Prénom" textFill="WHITE">
                <HBox.margin>

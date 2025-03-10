@@ -1,6 +1,8 @@
 package isen.project.contact_app.view;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import isen.project.contact_app.App;
 import isen.project.contact_app.db.Person;
@@ -41,6 +43,7 @@ public class ContactCardController {
     public void setContactData() {
         firstName.setText(this.person.getFirstName());
         lastName.setText(this.person.getLastName());
+        phoneNumber.setText(this.person.getPhoneNumber());
         //if (imagePath != null && !imagePath.isEmpty()) {
         //    profileImage.setImage(new Image(imagePath));
         //}
@@ -52,6 +55,7 @@ public class ContactCardController {
     
     public void clickOnContactCard() {
     	this.homeController.profilCard.visibleProperty().set(true);
+    	this.homeController.editCard.visibleProperty().set(false);
     	fillProfilInfo();
     }
     
@@ -62,6 +66,18 @@ public class ContactCardController {
     	this.homeController.adress.setText(this.person.getAddress());
     	this.homeController.number.setText(this.person.getPhoneNumber());
     	this.homeController.email.setText(this.person.getEmailAddress());
+    	this.homeController.birthDate.setText(dateToString(this.person.getBirthDate(),"yyyy-MM-dd"));
     	this.homeController.setSelectedPerson(this.person);
     }
+    
+    public static String dateToString(Date date, String format) {
+        if (date == null) {
+            return null;
+        }
+        SimpleDateFormat dateFormat = new SimpleDateFormat(format);
+        return dateFormat.format(date);
+    }
+
+    
+
 }
